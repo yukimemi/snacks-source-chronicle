@@ -52,9 +52,18 @@ matched against each file path.
 When both are set, the include filter is applied first, then the exclude
 filter.
 
-Example: drop any path containing "claude" or ending in ".tmp": >
+Note: these are Lua patterns, not regex. Magic characters ( . % ( ) [ ] + -
+* ? ^ $ ) must be escaped with "%" to match literally. For example, a
+literal hyphen is "%-" and a literal dot is "%.".
 
-    vim.g.chronicle_exclude_patterns = { "claude", "%.tmp$" }
+Example: drop paths containing "claude-prompt" or "gemini-edit", or ending
+in ".tmp": >
+
+    vim.g.chronicle_exclude_patterns = {
+      "claude%-prompt",
+      "gemini%-edit",
+      "%.tmp$",
+    }
 <
 Example: keep only paths under your home directory: >
 

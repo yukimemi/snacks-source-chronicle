@@ -18,7 +18,7 @@ Two picker sources are registered:
 
 # Filtering
 
-Two optional globals let you filter the entries shown in the picker. Both take a list of Lua patterns and are evaluated against each file path.
+Two optional globals let you filter the entries shown in the picker. Both take a list of [Lua patterns](https://www.lua.org/manual/5.1/manual.html#5.4.1) and are evaluated against each file path.
 
 - `vim.g.chronicle_include_patterns`: if set, only paths matching at least one pattern are kept.
 - `vim.g.chronicle_exclude_patterns`: paths matching any pattern are dropped.
@@ -26,8 +26,11 @@ Two optional globals let you filter the entries shown in the picker. Both take a
 When both are set, `include` is applied first, then `exclude`.
 
 ```lua
-vim.g.chronicle_exclude_patterns = { "claude", "%.tmp$" }
+vim.g.chronicle_exclude_patterns = { "claude%-prompt", "gemini%-edit", "%.tmp$" }
 ```
+
+> [!NOTE]
+> These are **Lua patterns**, not regex. Magic characters (`. % ( ) [ ] + - * ? ^ $`) must be escaped with `%` to match literally. For example, a literal hyphen is `%-` and a literal dot is `%.`.
 
 # Sample configuration
 
