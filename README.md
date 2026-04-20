@@ -16,6 +16,19 @@ Two picker sources are registered:
 :lua Snacks.picker.chronicle_write()
 ```
 
+# Filtering
+
+Two optional globals let you filter the entries shown in the picker. Both take a list of Lua patterns and are evaluated against each file path.
+
+- `vim.g.chronicle_include_patterns`: if set, only paths matching at least one pattern are kept.
+- `vim.g.chronicle_exclude_patterns`: paths matching any pattern are dropped.
+
+When both are set, `include` is applied first, then `exclude`.
+
+```lua
+vim.g.chronicle_exclude_patterns = { "claude", "%.tmp$" }
+```
+
 # Sample configuration
 
 ```lua

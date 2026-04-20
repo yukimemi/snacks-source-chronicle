@@ -1,0 +1,84 @@
+*snacks-source-chronicle.txt*  Snacks.nvim picker source for chronicle.vim
+
+Author:  yukimemi
+License: MIT
+
+==============================================================================
+CONTENTS                                      *snacks-source-chronicle-contents*
+
+    1. Introduction ....... |snacks-source-chronicle-introduction|
+    2. Requirements ....... |snacks-source-chronicle-requirements|
+    3. Usage .............. |snacks-source-chronicle-usage|
+    4. Filtering .......... |snacks-source-chronicle-filtering|
+    5. Variables .......... |snacks-source-chronicle-variables|
+
+==============================================================================
+1. INTRODUCTION                           *snacks-source-chronicle-introduction*
+
+snacks-source-chronicle registers two picker sources for |snacks.nvim| that
+read file lists written by chronicle.vim:
+
+    - chronicle_read  : files recorded as read
+    - chronicle_write : files recorded as written
+
+==============================================================================
+2. REQUIREMENTS                           *snacks-source-chronicle-requirements*
+
+    - folke/snacks.nvim      https://github.com/folke/snacks.nvim
+    - yukimemi/chronicle.vim https://github.com/yukimemi/chronicle.vim
+
+==============================================================================
+3. USAGE                                         *snacks-source-chronicle-usage*
+
+Invoke either picker source: >
+
+    :lua Snacks.picker.chronicle_read()
+    :lua Snacks.picker.chronicle_write()
+<
+Sample key mappings: >
+
+    vim.keymap.set("n", "mr", function() Snacks.picker.chronicle_read() end,
+      { desc = "Chronicle read" })
+    vim.keymap.set("n", "mw", function() Snacks.picker.chronicle_write() end,
+      { desc = "Chronicle write" })
+<
+==============================================================================
+4. FILTERING                                 *snacks-source-chronicle-filtering*
+
+Entries can be filtered before they reach the picker by setting two optional
+globals. Both accept a list of Lua patterns (see |lua-patterns|) and are
+matched against each file path.
+
+When both are set, the include filter is applied first, then the exclude
+filter.
+
+Example: drop any path containing "claude" or ending in ".tmp": >
+
+    vim.g.chronicle_exclude_patterns = { "claude", "%.tmp$" }
+<
+Example: keep only paths under your home directory: >
+
+    vim.g.chronicle_include_patterns = { "^" .. vim.fn.expand("~") }
+<
+==============================================================================
+5. VARIABLES                                 *snacks-source-chronicle-variables*
+
+                                                      *g:chronicle_read_path*
+g:chronicle_read_path ~
+    Path to the file listing read entries. Typically set by chronicle.vim.
+
+                                                     *g:chronicle_write_path*
+g:chronicle_write_path ~
+    Path to the file listing written entries. Typically set by chronicle.vim.
+
+                                               *g:chronicle_include_patterns*
+g:chronicle_include_patterns ~
+    Optional list of Lua patterns. If set and non-empty, only paths matching
+    at least one pattern are shown.
+
+                                               *g:chronicle_exclude_patterns*
+g:chronicle_exclude_patterns ~
+    Optional list of Lua patterns. Paths matching any pattern are dropped.
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:

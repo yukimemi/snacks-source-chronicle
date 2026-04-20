@@ -15,12 +15,33 @@ local function read_lines(path)
   return vim.fn.readfile(expanded)
 end
 
+local function match_any(file, patterns)
+  for _, pattern in ipairs(patterns) do
+    if file:match(pattern) then
+      return true
+    end
+  end
+  return false
+end
+
+local function accept(file)
+  local include = vim.g.chronicle_include_patterns
+  if type(include) == "table" and #include > 0 and not match_any(file, include) then
+    return false
+  end
+  local exclude = vim.g.chronicle_exclude_patterns
+  if type(exclude) == "table" and #exclude > 0 and match_any(file, exclude) then
+    return false
+  end
+  return true
+end
+
 local function make_finder(path_var)
   return function()
     local lines = read_lines(vim.g[path_var])
     local items = {}
     for _, file in ipairs(lines) do
-      if file ~= "" then
+      if file ~= "" and accept(file) then
         items[#items + 1] = {
           text = file,
           file = file,
