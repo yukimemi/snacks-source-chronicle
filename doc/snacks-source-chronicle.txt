@@ -1,4 +1,4 @@
-*snacks-source-chronicle.txt*  Snacks.nvim picker source for chronicle.vim
+*snacks-source-chronicle.txt*  Snacks.nvim picker source for chronicle.nvim
 
 Author:  yukimemi
 License: MIT
@@ -16,7 +16,10 @@ CONTENTS                                      *snacks-source-chronicle-contents*
 1. INTRODUCTION                           *snacks-source-chronicle-introduction*
 
 snacks-source-chronicle registers two picker sources for |snacks.nvim| that
-read file lists written by chronicle.vim:
+read file lists written by chronicle.nvim (the pure-Lua successor to
+chronicle.vim). It reads the history files via the
+`vim.g.chronicle_read_path` / `vim.g.chronicle_write_path` globals, so it works
+with either backend.
 
     - chronicle_read  : files recorded as read
     - chronicle_write : files recorded as written
@@ -24,8 +27,9 @@ read file lists written by chronicle.vim:
 ==============================================================================
 2. REQUIREMENTS                           *snacks-source-chronicle-requirements*
 
-    - folke/snacks.nvim      https://github.com/folke/snacks.nvim
-    - yukimemi/chronicle.vim https://github.com/yukimemi/chronicle.vim
+    - folke/snacks.nvim       https://github.com/folke/snacks.nvim
+    - yukimemi/chronicle.nvim https://github.com/yukimemi/chronicle.nvim
+      (or the older yukimemi/chronicle.vim)
 
 ==============================================================================
 3. USAGE                                         *snacks-source-chronicle-usage*
@@ -74,11 +78,11 @@ Example: keep only paths under your home directory: >
 
                                                       *g:chronicle_read_path*
 g:chronicle_read_path ~
-    Path to the file listing read entries. Typically set by chronicle.vim.
+    Path to the file listing read entries. Typically set by chronicle.nvim.
 
                                                      *g:chronicle_write_path*
 g:chronicle_write_path ~
-    Path to the file listing written entries. Typically set by chronicle.vim.
+    Path to the file listing written entries. Typically set by chronicle.nvim.
 
                                                *g:chronicle_include_patterns*
 g:chronicle_include_patterns ~
