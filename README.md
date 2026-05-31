@@ -1,11 +1,13 @@
 # snacks-source-chronicle
 
-This is a [folke/snacks.nvim](https://github.com/folke/snacks.nvim) picker source for [chronicle.vim](https://github.com/yukimemi/chronicle.vim).
+This is a [folke/snacks.nvim](https://github.com/folke/snacks.nvim) picker source for [chronicle.nvim](https://github.com/yukimemi/chronicle.nvim) — the pure-Lua successor to [chronicle.vim](https://github.com/yukimemi/chronicle.vim).
+
+It reads the history files directly via `vim.g.chronicle_read_path` / `vim.g.chronicle_write_path`, so it works with **either** backend (chronicle.nvim is recommended; chronicle.vim is the older denops version).
 
 # Requirements
 
 - [folke/snacks.nvim](https://github.com/folke/snacks.nvim)
-- [yukimemi/chronicle.vim](https://github.com/yukimemi/chronicle.vim)
+- [yukimemi/chronicle.nvim](https://github.com/yukimemi/chronicle.nvim) (or the older [yukimemi/chronicle.vim](https://github.com/yukimemi/chronicle.vim))
 
 # Usage
 
@@ -46,7 +48,7 @@ With [folke/lazy.nvim](https://github.com/folke/lazy.nvim):
   "yukimemi/snacks-source-chronicle",
   dependencies = {
     "folke/snacks.nvim",
-    "yukimemi/chronicle.vim",
+    "yukimemi/chronicle.nvim",
   },
 }
 ```
@@ -62,7 +64,7 @@ Or write it directly in `config.toml`:
 ```toml
 [[plugins]]
 url = "yukimemi/snacks-source-chronicle"
-depends = ["snacks.nvim", "chronicle.vim"]
+depends = ["snacks.nvim", "chronicle.nvim"]
 on_map = [
   { lhs = "mr", mode = "n", desc = "Chronicle Read" },
   { lhs = "mw", mode = "n", desc = "Chronicle Write" },
